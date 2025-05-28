@@ -6,7 +6,7 @@ import { getAllStudents, getStudentById } from './services/students.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
-export const startServer = () => {
+export const setupServer = () => {
   const app = express();
 
   app.use(express.json());
@@ -57,6 +57,5 @@ export const startServer = () => {
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    console.log(`Link: http://localhost:${PORT}`);
   });
 };
