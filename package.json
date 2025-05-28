@@ -1,5 +1,5 @@
 {
-  "name": "template-nodejs-express",
+  "name": "nodejs-hw-mongodb",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PushEaxVK/template-nodejs-express.git"
+    "url": "git+https://github.com/PushEaxVK/nodejs-hw-mongodb.git"
   },
   "keywords": [],
   "author": "PushEax <pusheax.vk@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PushEaxVK/template-nodejs-express/issues"
+    "url": "https://github.com/PushEaxVK/nodejs-hw-mongodb/issues"
   },
-  "homepage": "https://github.com/PushEaxVK/template-nodejs-express#readme",
+  "homepage": "https://github.com/PushEaxVK/nodejs-hw-mongodb#readme",
   "devDependencies": {
     "@eslint/js": "^9.27.0",
     "eslint": "^9.27.0",
