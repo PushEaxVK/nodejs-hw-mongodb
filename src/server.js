@@ -17,6 +17,7 @@ export const setupServer = () => {
       limit: '100kb',
     }),
   );
+
   app.use(cors());
 
   app.use(
