@@ -32,17 +32,6 @@ export const getAllContacts = async ({
       .exec(),
   ]);
 
-  // const contactsCount = await ContactsCollection.find()
-  //   .merge(contactsQuery)
-  //   .countDocuments();
-
-  // const contacts = await ContactsCollection.find()
-  //   .merge(contactsQuery)
-  //   .skip(skip)
-  //   .limit(limit)
-  //   .sort({ [sortBy]: sortOrder })
-  //   .exec();
-
   const paginationData = calculatePaginationData(contactsCount, page, perPage);
 
   return {
