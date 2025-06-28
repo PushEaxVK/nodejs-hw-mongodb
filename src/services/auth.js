@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+import bcrypt from 'bcrypt';
 import { UsersCollection } from '../db/models/users.js';
 
 export const registerUser = async (payload) => {
@@ -8,6 +9,12 @@ export const registerUser = async (payload) => {
     throw createHttpError(409, 'Email in use');
   }
 
-  const user = await UsersCollection.create(payload);
+  const hashedPassword = await bcrypt.hash(payload.password, 10);
+
+  const user = await UsersCollection.create({
+    ...payload,
+    password: hashedPassword,
+  });
+
   return user;
 };
