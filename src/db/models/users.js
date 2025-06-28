@@ -24,4 +24,4 @@ const usersSchema = new Schema(
   },
 );
 
-export const UserCollection = model('users', usersSchema);
+export const UsersCollection = model('users', usersSchema);
