@@ -7,8 +7,8 @@ import {
   patchContactController,
 } from '../controllers/contacts.js';
 import {
-  createContactSchema,
-  updateContactSchema,
+  createContactValidationSchema,
+  updateContactValidationSchema,
 } from '../validation/contacts.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidId.js';
@@ -20,12 +20,12 @@ router.get('/contacts', getContactsController);
 router.get('/contacts/:contactId', getContactByIdController);
 router.post(
   '/contacts',
-  validateBody(createContactSchema),
+  validateBody(createContactValidationSchema),
   createContactController,
 );
 router.patch(
   '/contacts/:contactId',
-  validateBody(updateContactSchema),
+  validateBody(updateContactValidationSchema),
   patchContactController,
 );
 router.delete('/contacts/:contactId', deleteContactByIdController);
