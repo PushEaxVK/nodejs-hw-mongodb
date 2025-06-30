@@ -6,6 +6,7 @@ import {
 } from '../validation/auth.js';
 import {
   loginUserController,
+  logoutUserController,
   refreshUserSessionController,
   registerUserController,
 } from '../controllers/auth.js';
@@ -23,6 +24,6 @@ router.post(
   loginUserController,
 );
 router.post('/auth/refresh', refreshUserSessionController);
-router.post('/auth/logout', (req, res) => res.json({ message: 'OK' }));
+router.post('/auth/logout', logoutUserController);
 
 export default router;
