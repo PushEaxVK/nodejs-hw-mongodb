@@ -12,3 +12,15 @@ export const registerUserValidationSchema = Joi.object({
     })
     .required(),
 });
+
+export const loginUserValidationSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string()
+    .min(12)
+    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{12,}$/)
+    .message({
+      'string.pattern.base':
+        'Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character.',
+    })
+    .required(),
+});
