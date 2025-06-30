@@ -1,4 +1,9 @@
-import { loginUser, registerUser } from '../services/auth.js';
+import { THERTY_DAYS } from '../constants/index.js';
+import {
+  loginUser,
+  refreshUserSession,
+  registerUser,
+} from '../services/auth.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -10,12 +15,45 @@ export const registerUserController = async (req, res) => {
   });
 };
 
+const setupSession = (res, session) => {
+  res.cookie('refreshToken', session.refreshToken, {
+    httpOnly: true,
+    expires: new Date(Date.now() + THERTY_DAYS),
+  });
+
+  res.cookie('sessionId', session._id, {
+    httpOnly: true,
+    expires: new Date(Date.now() + THERTY_DAYS),
+  });
+};
+
 export const loginUserController = async (req, res) => {
-  const user = await loginUser(req.body);
+  const session = await loginUser(req.body);
+
+  setupSession(res, session);
 
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user!',
-    data: user,
+    data: {
+      accessToken: session.accessToken,
+    },
+  });
+};
+
+export const refreshUserSessionController = async (req, res) => {
+  const session = await refreshUserSession({
+    sessionId: req.cookies.sessionId,
+    refreshToken: req.cookies.refreshToken,
+  });
+
+  setupSession(res, session);
+
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully refreshed an user!',
+    data: {
+      accessToken: session.accessToken,
+    },
   });
 };
