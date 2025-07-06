@@ -24,3 +24,7 @@ export const loginUserValidationSchema = Joi.object({
     })
     .required(),
 });
+
+export const requestResetPwdValidationSchema = Joi.object({
+  email: Joi.string().email().required(),
+});

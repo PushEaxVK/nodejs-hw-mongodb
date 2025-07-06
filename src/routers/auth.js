@@ -3,6 +3,7 @@ import { validateBody } from '../middlewares/validateBody.js';
 import {
   loginUserValidationSchema,
   registerUserValidationSchema,
+  requestResetPwdValidationSchema,
 } from '../validation/auth.js';
 import {
   loginUserController,
@@ -25,7 +26,14 @@ router.post(
 );
 router.post('/auth/refresh', refreshUserSessionController);
 router.post('/auth/logout', logoutUserController);
-router.post('/auth/send-reset-email', (req, res) => {
+router.post(
+  '/auth/send-reset-email',
+  validateBody(requestResetPwdValidationSchema),
+  (req, res) => {
+    res.json({ message: 'OK' });
+  },
+);
+router.post('/auth/reset-pwd', (req, res) => {
   res.json({ message: 'OK' });
 });
 
