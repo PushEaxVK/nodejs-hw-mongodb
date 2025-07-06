@@ -25,5 +25,8 @@ router.post(
 );
 router.post('/auth/refresh', refreshUserSessionController);
 router.post('/auth/logout', logoutUserController);
+router.post('/auth/send-reset-email', (req, res) => {
+  res.json({ message: 'OK' });
+});
 
 export default router;
