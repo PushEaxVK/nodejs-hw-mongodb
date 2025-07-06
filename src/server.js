@@ -6,8 +6,9 @@ import router from './routers/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
+import { ENV_VARS } from './constants/envVars.js';
 
-const PORT = Number(getEnvVar('PORT', '3000'));
+const PORT = Number(getEnvVar(ENV_VARS.PORT, '3000'));
 
 export const setupServer = () => {
   const app = express();
