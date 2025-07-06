@@ -12,11 +12,11 @@ const mailClient = createTransport({
   },
 });
 
-export const sendEmail = async () => {
+export const sendEmail = async ({ email }) => {
   try {
     await mailClient.sendMail({
-      from: 'no-reply@localhost',
-      to: process.env.APP_DOMAIN,
+      from: 'pusheax@ukr.net',
+      to: email,
       subject: 'Reset password',
       html: '<h1>Reset password</h1>',
     });

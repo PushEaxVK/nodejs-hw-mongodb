@@ -4,6 +4,7 @@ import { UsersCollection } from '../db/models/users.js';
 import { SessionsCollection } from '../db/models/sessions.js';
 import { randomBytes } from 'crypto';
 import { FIFTEEN_MINUTES, THERTY_DAYS } from '../constants/index.js';
+import { sendEmail } from '../utils/send-email.js';
 
 export const registerUser = async (payload) => {
   const existingUser = await UsersCollection.findOne({ email: payload.email });
@@ -86,4 +87,8 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
 
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
+};
+
+export const requestResetPwdEmail = async ({ email }) => {
+  await sendEmail({ email });
 };

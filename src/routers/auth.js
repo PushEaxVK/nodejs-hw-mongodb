@@ -10,6 +10,7 @@ import {
   logoutUserController,
   refreshUserSessionController,
   registerUserController,
+  requestResetPwdEmailController,
 } from '../controllers/auth.js';
 
 const router = Router();
@@ -29,9 +30,7 @@ router.post('/auth/logout', logoutUserController);
 router.post(
   '/auth/send-reset-email',
   validateBody(requestResetPwdValidationSchema),
-  (req, res) => {
-    res.json({ message: 'OK' });
-  },
+  requestResetPwdEmailController,
 );
 router.post('/auth/reset-pwd', (req, res) => {
   res.json({ message: 'OK' });
