@@ -5,6 +5,9 @@ import { SessionsCollection } from '../db/models/sessions.js';
 import { randomBytes } from 'crypto';
 import { FIFTEEN_MINUTES, THERTY_DAYS } from '../constants/index.js';
 import { sendEmail } from '../utils/send-email.js';
+import jwt from 'jsonwebtoken';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { ENV_VARS } from '../constants/envVars.js';
 
 export const registerUser = async (payload) => {
   const existingUser = await UsersCollection.findOne({ email: payload.email });
@@ -90,5 +93,24 @@ export const logoutUser = async (sessionId) => {
 };
 
 export const requestResetPwdEmail = async ({ email }) => {
-  await sendEmail({ email });
+  const user = await UsersCollection.findOne({ email });
+  if (!user) {
+    throw createHttpError(404, 'User not found!');
+  }
+
+  const token = jwt.sign(
+    {
+      sub: user._id,
+      email,
+    },
+    getEnvVar(ENV_VARS.JWT_SECRET),
+    {
+      expiresIn: '15m',
+    },
+  );
+
+  const html = `<h1>Reset password</h1><p>Click <a href="${token}">here</a> to reset your password!</p>
+  <p>Token: ${token}</p>`;
+
+  await sendEmail({ email, html });
 };
