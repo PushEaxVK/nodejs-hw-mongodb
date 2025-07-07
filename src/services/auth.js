@@ -135,7 +135,9 @@ export const resetPassword = async ({ token, password }) => {
 
   try {
     entries = jwt.verify(token, getEnvVar(ENV_VARS.JWT_SECRET));
-    const { error } = jwtTokenPayloadValidationSchema.validate(entries);
+    const { error } = jwtTokenPayloadValidationSchema.validate(entries, {
+      abortEarly: false,
+    });
     if (error) {
       throw new Error(`Payload validation error: ${error.message}`);
     }
