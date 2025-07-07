@@ -12,6 +12,7 @@ import Handlebars from 'handlebars';
 import fs from 'node:fs';
 import path from 'node:path';
 import { TEMPLATE_DIR } from '../constants/paths.js';
+import { jwtTokenPayloadValidationSchema } from '../validation/auth.js';
 
 const resetPasswordEmailTemplate = fs
   .readFileSync(path.join(TEMPLATE_DIR, 'reset-password-email-template.html'))
@@ -108,12 +109,12 @@ export const requestResetPwdEmail = async ({ email }) => {
 
   const token = jwt.sign(
     {
-      sub: user._id,
+      sub: user._id.toString(),
       email,
     },
     getEnvVar(ENV_VARS.JWT_SECRET),
     {
-      expiresIn: '15m',
+      expiresIn: '5m',
     },
   );
 
@@ -127,4 +128,36 @@ export const requestResetPwdEmail = async ({ email }) => {
   const subject = 'Reset password';
 
   await sendEmail({ email, html, subject });
+};
+
+export const resetPassword = async ({ token, password }) => {
+  let entries;
+
+  try {
+    entries = jwt.verify(token, getEnvVar(ENV_VARS.JWT_SECRET));
+    const { error } = jwtTokenPayloadValidationSchema.validate(entries);
+    if (error) {
+      throw new Error(`Payload validation error: ${error.message}`);
+    }
+  } catch (err) {
+    if (err instanceof Error)
+      throw createHttpError(401, 'Token is expired or invalid.');
+    throw err;
+  }
+
+  const { email, sub: _id } = entries;
+
+  const user = await UsersCollection.findOne({ email, _id });
+  if (!user) {
+    throw createHttpError(404, 'User not found!');
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await UsersCollection.updateOne(
+    { _id: user._id },
+    { password: hashedPassword },
+  );
+
+  await SessionsCollection.deleteOne({ userId: user._id });
 };

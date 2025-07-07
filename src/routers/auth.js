@@ -4,6 +4,7 @@ import {
   loginUserValidationSchema,
   registerUserValidationSchema,
   requestResetPwdValidationSchema,
+  resetPasswordValidationSchema,
 } from '../validation/auth.js';
 import {
   loginUserController,
@@ -11,6 +12,7 @@ import {
   refreshUserSessionController,
   registerUserController,
   requestResetPwdEmailController,
+  resetPasswordController,
 } from '../controllers/auth.js';
 
 const router = Router();
@@ -32,8 +34,10 @@ router.post(
   validateBody(requestResetPwdValidationSchema),
   requestResetPwdEmailController,
 );
-router.post('/auth/reset-pwd', (req, res) => {
-  res.json({ message: 'OK' });
-});
+router.post(
+  '/auth/reset-pwd',
+  validateBody(resetPasswordValidationSchema),
+  resetPasswordController,
+);
 
 export default router;
