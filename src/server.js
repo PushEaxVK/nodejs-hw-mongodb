@@ -37,11 +37,11 @@ export const setupServer = () => {
     res.json({ message: 'Hello World!' });
   });
 
+  app.use('/uploads', express.static(UPLOAD_DIR));
+
   app.use(router);
   app.use(notFoundHandler);
   app.use(errorHandler);
-
-  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
