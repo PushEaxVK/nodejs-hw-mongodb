@@ -13,3 +13,9 @@ export const ENV_VARS = {
   APP_DOMAIN: 'APP_DOMAIN',
   BACKEND_URL: 'BACKEND_URL',
 };
+
+export const CLOUDINARY = {
+  CLOUD_NAME: 'CLOUD_NAME',
+  API_KEY: 'API_KEY',
+  API_SECRET: 'API_SECRET',
+};
