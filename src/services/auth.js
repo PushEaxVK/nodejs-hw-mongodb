@@ -8,6 +8,14 @@ import { sendEmail } from '../utils/send-email.js';
 import jwt from 'jsonwebtoken';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { ENV_VARS } from '../constants/envVars.js';
+import Handlebars from 'handlebars';
+import fs from 'node:fs';
+import path from 'node:path';
+import { TEMPLATE_DIR } from '../constants/paths.js';
+
+const resetPasswordEmailTemplate = fs
+  .readFileSync(path.join(TEMPLATE_DIR, 'reset-password-email-template.html'))
+  .toString('utf8');
 
 export const registerUser = async (payload) => {
   const existingUser = await UsersCollection.findOne({ email: payload.email });
@@ -109,8 +117,14 @@ export const requestResetPwdEmail = async ({ email }) => {
     },
   );
 
-  const html = `<h1>Reset password</h1><p>Click <a href="${token}">here</a> to reset your password!</p>
-  <p>Token: ${token}</p>`;
+  const template = Handlebars.compile(resetPasswordEmailTemplate);
 
-  await sendEmail({ email, html });
+  const html = template({
+    name: user.name,
+    link: `${getEnvVar(ENV_VARS.APP_DOMAIN)}/reset-password?token=${token}`,
+  });
+
+  const subject = 'Reset password';
+
+  await sendEmail({ email, html, subject });
 };
