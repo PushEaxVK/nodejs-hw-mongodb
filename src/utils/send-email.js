@@ -12,12 +12,12 @@ const mailClient = createTransport({
   },
 });
 
-export const sendEmail = async ({ email, html }) => {
+export const sendEmail = async ({ email, html, subject }) => {
   try {
     await mailClient.sendMail({
       from: getEnvVar(ENV_VARS.SMTP_FROM),
       to: email,
-      subject: 'Reset password',
+      subject,
       html,
     });
   } catch (error) {
