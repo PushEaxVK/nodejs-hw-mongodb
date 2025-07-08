@@ -10,18 +10,18 @@ This project is built with Express and connected to a MongoDB database, allowing
 
 ## 📦 Tech Stack
 
-- **[Node.js](https://nodejs.org/)** – JavaScript runtime
-- **[Express 5](https://expressjs.com/)** – Web framework for building APIs
-- **[MongoDB + Mongoose](https://mongoosejs.com/)** – NoSQL database with ODM
+- **[Node.js](https://nodejs.org/)** - JavaScript runtime
+- **[Express 5](https://expressjs.com/)** - Web framework for building APIs
+- **[MongoDB + Mongoose](https://mongoosejs.com/)** - NoSQL database with ODM
 - **[JWT](https://github.com/auth0/node-jsonwebtoken)** - JSON Web Token
-- **[Multer](https://github.com/expressjs/multer)** – File upload middleware
+- **[Multer](https://github.com/expressjs/multer)** - File upload middleware
 - **[Cloudinary](https://cloudinary.com/)** - Image hosting service
-- **[Nodemailer](https://nodemailer.com/about/)** – Email-based password reset
+- **[Nodemailer](https://nodemailer.com/about/)** - Email-based password reset
 - **[Handlebars](https://handlebarsjs.com/)** - Template engine for rendering HTML
 - **[Joi](https://joi.dev/)** - Validation library for JSON schemas
-- **[pino-http](https://github.com/pinojs/pino-http)** – HTTP logging middleware
-- **[cors](https://www.npmjs.com/package/cors)** – Enables CORS for cross-origin requests
-- **[dotenv](https://www.npmjs.com/package/dotenv)** – Loads environment variables
+- **[pino-http](https://github.com/pinojs/pino-http)** - HTTP logging middleware
+- **[cors](https://www.npmjs.com/package/cors)** - Enables CORS for cross-origin requests
+- **[dotenv](https://www.npmjs.com/package/dotenv)** - Loads environment variables
 
 ## 🗂️ Project Structure
 
