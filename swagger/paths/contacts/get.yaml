@@ -1,9 +1,7 @@
-#/swagger/paths/contacts/get.yaml
-
 tags:
   - Contacts
 summary: Get list of contacts
-operationId: getStudents
+operationId: getContacts
 description: 'Returns a list of contacts belonging to the authenticated user'
 security:
   - bearerAuth: []
